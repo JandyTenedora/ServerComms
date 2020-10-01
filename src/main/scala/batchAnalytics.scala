@@ -5,7 +5,7 @@ To run the project:
  mvn scala:run -DmainClass=batchAnalytics
  */
 
-
+package streamAnalytics
 import org.apache.spark.sql.SparkSession
 import org.apache.spark.SparkContext
 import java.sql.Timestamp
@@ -31,7 +31,7 @@ object batchAnalytics {
     val preparedLogsNew = preparedLogs.withColumn("timestamp", col("timestamp").cast(TimestampType))
     val weblogs = preparedLogsNew.as[WebLog]
     println(weblogs.count)
-    weblogs.show()
+    //weblogs.show()
 
     val topDailyUrls = weblogs.withColumn("dayOfMonth", dayofmonth($"timestamp"))
       .select($"request", $"dayOfMonth")
@@ -51,6 +51,21 @@ object batchAnalytics {
         case _ => false
       }
     }
+
+
+    val wserver = new weblogServer()
+    val server = new SocketHandler(spark, wserver.serverPort, weblogs)
+    server.start()
+    for (i <- 1 to 20){
+      println(server.connectionWidget)
+      println(server.dataWidget)
+      Thread.sleep(1000)
+    }
+    server.stop()
+
+
+
+
 
 
   }
