@@ -6,7 +6,7 @@ import java.io.OutputStream;
 
 public class TCPEchoClient {
     public static void main(String[] args) throws IOException{
-        if ((args.length != 2 || args.length != 3))
+        if ((args.length != 2 && args.length != 3))
             throw new IllegalArgumentException("Parameter(s) <Server> <Word> [<Port>]");
         String server = args[0];
         byte[] data = args[1].getBytes();
