@@ -18,10 +18,19 @@ public class TCPEchoClient {
 
         InputStream in = socket.getInputStream();
         OutputStream out = socket.getOutputStream();
-
         out.write(data);
 
+        int totalBytes = 0;
+        int bytesReceived;
 
+        while (totalBytes < data.length){
+            bytesReceived = in.read(data, totalBytes, data.length-totalBytes);
+            if ( bytesReceived == -1)
+                throw new SocketException("Connection closed prematurely");
+            totalBytes += bytesReceived;
+        }
 
+        System.out.println("Received " + new String(data));
+        socket.close();
     }
 }
