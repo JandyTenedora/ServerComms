@@ -1,4 +1,3 @@
-package streamAnalytics
 import java.sql.Timestamp
 
 import scala.collection.mutable
