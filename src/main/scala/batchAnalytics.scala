@@ -5,7 +5,6 @@ To run the project:
  mvn scala:run -DmainClass=batchAnalytics
  */
 
-package streamAnalytics
 import org.apache.spark.sql.SparkSession
 import org.apache.spark.SparkContext
 import java.sql.Timestamp
@@ -62,6 +61,7 @@ object batchAnalytics {
       Thread.sleep(1000)
     }
     server.stop()
+
 
 
 
