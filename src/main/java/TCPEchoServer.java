@@ -3,14 +3,10 @@ import java.io.*;
 
 public class TCPEchoServer {
     private static final int BUFFERSIZE = 32;
-
     public static void main(String[] args) throws IOException {
-        if (args.length != 1)
-            throw new IllegalArgumentException("Parameter(s): <Port");
 
-        int serverPort = Integer.parseInt(args[0]);
-
-        ServerSocket serverSocket = new ServerSocket(serverPort);
+        int port = (args.length == 0) ? Integer.parseInt(args[0]) : 9999;
+        ServerSocket serverSocket = new ServerSocket(port);
 
         int receivedMessageSize;
         byte[] receiveBuffer = new byte[BUFFERSIZE];
