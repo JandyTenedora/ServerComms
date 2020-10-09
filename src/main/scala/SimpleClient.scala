@@ -11,10 +11,11 @@ object SimpleClient extends App {
   val socket = new Socket("localhost", 4998)
   val input = new BufferedReader(new InputStreamReader(socket.getInputStream))
   val output = new PrintStream(socket.getOutputStream)
+  var stopped = false
   Future {
-    while (true) {
+    while (!stopped) {
       val p = input.readLine()
-      println(p)
+      if (p != null) println(p)
     }
   }
 
@@ -22,11 +23,11 @@ object SimpleClient extends App {
 
   var tempInput=""
   while(tempInput!=":quit"){
-    println("made it to line 25")
-    val tempInput = StdIn.readLine
+    tempInput = StdIn.readLine
     output.println(tempInput)
   }
   socket.close()
+  stopped=true
 
 
 }
