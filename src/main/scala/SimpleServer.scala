@@ -18,7 +18,14 @@ object SimpleServer extends App {
     println("Socket accepted: " + socket)
     val in = new BufferedReader(new InputStreamReader(socket.getInputStream))
     val out = new PrintStream(socket.getOutputStream)
-    // TODO - ask name
+    Future {
+      out.print("Enter your name\n")
+      val name = in.readLine()
+      val user = User(name, socket, in, out)
+      //TODO implement case where it waits until new name is inputted
+      users += name -> user
+
+    }
   }
 
   def nonBlockingRead(in: BufferedReader): Option[String] = {
@@ -32,7 +39,7 @@ object SimpleServer extends App {
         users -= user.name
       } else {
         for((name,u) <- users) {
-          u.out.println(name+" : "+input)
+          u.out.println(user.name+" : "+input)
         }
       }
     }
@@ -47,7 +54,9 @@ object SimpleServer extends App {
   while(true){
     //TODO - run through users checking input
     for ((name,user) <- users){
-      //doChat(user
+      //println("made it to 57 in server")
+      chat(user)
+
     }
     Thread.sleep(10)
   }

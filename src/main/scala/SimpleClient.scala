@@ -9,22 +9,22 @@ import scala.concurrent.ExecutionContext.Implicits.global
 object SimpleClient extends App {
   println("Socket being created")
   val socket = new Socket("localhost", 4998)
-  val input = socket.getInputStream
+  val input = new BufferedReader(new InputStreamReader(socket.getInputStream))
   val output = new PrintStream(socket.getOutputStream)
   Future {
     while (true) {
-      val currentInput = StdIn.readLine
-      output.println(currentInput)
-      val p = input.read()
+      val p = input.readLine()
       println(p)
     }
   }
 
-  var tempInput = ""
 
+
+  var tempInput=""
   while(tempInput!=":quit"){
-    val input = StdIn.readLine
-    output.println(input)
+    println("made it to line 25")
+    val tempInput = StdIn.readLine
+    output.println(tempInput)
   }
   socket.close()
 
