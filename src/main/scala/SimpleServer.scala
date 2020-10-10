@@ -54,7 +54,6 @@ object SimpleServer extends App {
   while(true){
     //TODO - run through users checking input
     for ((name,user) <- users){
-      //println("made it to 57 in server")
       chat(user)
 
     }
