@@ -12,7 +12,7 @@ object TempData {
   }
 }
 
-
+//TODO integrate with batch analytics
 object RDDTempData {
   val dataDirectory = "/home/jtenedor/Downloads/BigDataAnalyticswithSpark-master/TX417945_8515.csv"
   val dataDirectory2= "/home/jtenedor/Downloads/BigDataAnalyticswithSpark-master/MN212142_9392.csv"
@@ -34,7 +34,7 @@ object RDDTempData {
 
     println(data.max()(Ordering.by(_.tmax)))
 
-    println(data.reduce((td1,td2) => if (td1.tmax >= td2.tmax) td1 else td2))
+    println(data.reduce((td1,td2) => if (td1.tmax >= td2.tmax) td1 else td2)) //TODO turn this into a test case
 
 
   }
